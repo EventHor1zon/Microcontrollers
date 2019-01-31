@@ -1,3 +1,8 @@
+/*  Small set of functions for using the 24AA set of EEPROM memory chips
+ *  uses Atmel's TWI (essentially I2C) to read and write data
+ *  [TODO] add function to clear all flash mem? Add function to encrypt flash mem?
+ */
+
 #define START 0x08
 #define MTX_ADDR_ACK 0x18
 #define MTX_DATA_ACK 0x28
@@ -78,7 +83,7 @@ int TWI(uint8_t SLA_ADDR, uint8_t MEM_ADDR_L, uint8_t MEM_ADDR_H, char *ptr, boo
     // for read or write instructions need a 2-part memory addresses MEM_ADDR_L & H. Read from or write to address.
     // for read or write need char* data_ptr (empty buffer for read, buffer containing bytes for write)
     // bool READ - 1 for read, 0 for write
-    // for read, need a data length to read - set to 0 for write, is redundant
+    // for read, need a data length to read - for write, use strlen(data) or similar
     start_write();                                                            // all interactions start with a start bit
     if(addr_write(SLA_ADDR)) { return STATUS; }                     // "      "           "     "  target address (write mode)
     if(data_write(MEM_ADDR_H)) { return STATUS; }                   // "      "           "     "  high memory address on target
