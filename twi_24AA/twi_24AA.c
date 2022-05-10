@@ -1,22 +1,16 @@
-/*  Small set of functions for using the 24AA set of EEPROM memory chips
- *  uses Atmel's TWI (essentially I2C) to read and write data
- *  [TODO] add function to clear all flash mem? Add function to encrypt flash mem?
- */
+/**
+ *  Small library to control the 24AA series of i2c EEPROM ICs 
+ *      using AVR's Two Wire Interface
+ *      https://ww1.microchip.com/downloads/en/DeviceDoc/20005202A.
+ * 
+ *  Bit of practice to learn how I2C works and programming with registers
+ * 
+ *  Built and tested with ATMega328p
+ * 
+ **/
 
-#define START 0x08
-#define MTX_ADDR_ACK 0x18
-#define MTX_DATA_ACK 0x28
-#define MRC_ADDR_ACK 0x40
-#define MRC_DATA_ACK 0x50
-#define MRC_DATA_NACK 0x58
-#define STATUS (TWSR & 0xF8)
 
-#define TEST_DATA 0x41;
-#define TEST_ADDR_H 0x00;
-#define TEST_ADDR_L 0x00;
-
-#define SLA_ADDR_W 0xA0
-#define SLA_ADDR_R SLA_ADDR_W+1
+#include "twi_24AA.h"
 
 void set_rate(){
   TWBR=0xFF;
